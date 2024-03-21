@@ -20,7 +20,7 @@ def procesar_bloque_de_lineas(bloque_lineas):
                 contador_local[raiz] = 1
     return contador_local
 
-def dividir_en_bloques(archivo, tamaño_bloque=100):
+def dividir_en_bloques(archivo, tamaño_bloque=10000):
     """Divide el archivo en bloques de un cierto número de líneas."""
     bloque = []
     for linea in archivo:
@@ -42,7 +42,7 @@ def combinar_frecuencias(frecuencias_list):
                 frecuencias_global[palabra] = frecuencia
     return frecuencias_global
 
-def leer_y_contar_concurrente(ruta_archivo, num_hilos=8):
+def leer_y_contar_concurrente(ruta_archivo, num_hilos=16):
     start_time = time.time()
 
     with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
