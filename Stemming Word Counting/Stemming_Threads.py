@@ -42,7 +42,7 @@ def combinar_frecuencias(frecuencias_list):
                 frecuencias_global[palabra] = frecuencia
     return frecuencias_global
 
-def leer_y_contar_concurrente(ruta_archivo, num_hilos=10):
+def leer_y_contar_concurrente(ruta_archivo, num_hilos=8):
     start_time = time.time()
 
     with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
