@@ -30,6 +30,8 @@ def dividir_en_bloques(archivo, tamaño_bloque=10000):
             bloque = []
     if bloque:
         yield bloque
+    #yield convierte la funcion en generador. Es decir que produce valores uno a la vez y cuando se solicite
+
 
 def combinar_frecuencias(frecuencias_list):
     """Combina las frecuencias de palabras de múltiples diccionarios en uno solo."""
