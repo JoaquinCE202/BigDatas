@@ -25,7 +25,7 @@ def dividir_en_bloques(archivo, tamaño_bloque=10000):
     bloque = []
     for linea in archivo:
         bloque.append(linea)
-        if len(bloque) == tamaño_bloque:
+        if len(bloque) >= tamaño_bloque:
             yield bloque
             bloque = []
     if bloque:
