@@ -1,6 +1,5 @@
 import nltk
 from nltk.stem import PorterStemmer
-from collections import Counter
 import time  # Importamos el módulo time
 
 # Descargar los datos necesarios de NLTK, solo es necesario hacerlo una vez
@@ -10,7 +9,7 @@ import time  # Importamos el módulo time
 stemmer = PorterStemmer()
 
 def leer_y_contar(ruta_archivo):
-    frecuencias = Counter()
+    frecuencias = {}  # Usamos un diccionario en lugar de Counter
     start_time = time.time()  # Guardamos el tiempo de inicio
     
     try:
@@ -20,8 +19,11 @@ def leer_y_contar(ruta_archivo):
                 palabra = linea.strip().lower()  # Eliminamos espacios y convertimos a minúsculas
                 # Aplicamos el proceso de stemming a cada palabra
                 raiz_palabra = stemmer.stem(palabra)
-                # Contabilizamos la raíz de la palabra
-                frecuencias[raiz_palabra] += 1
+                # Contabilizamos la raíz de la palabra manualmente
+                if raiz_palabra in frecuencias:
+                    frecuencias[raiz_palabra] += 1
+                else:
+                    frecuencias[raiz_palabra] = 1
     except Exception as e:
         print(f"Se produjo un error al leer el archivo: {e}")
         return
