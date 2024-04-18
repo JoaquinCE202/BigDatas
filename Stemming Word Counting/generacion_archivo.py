@@ -1,29 +1,30 @@
 import os
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from collections import Counter
-import time
-import nltk
-from nltk.stem import PorterStemmer
 
+# Tamaño objetivo
+target_size_gb = 1
+target_size_bytes = target_size_gb * (1024 ** 3)  # 1GB en bytes
 
+# Tamaño de bloque de escritura
+block_size_bytes = 1024 ** 2  # 1MB
 
-def ampliar_archivo_hasta(ruta_archivo, tamano_final_mb):
-    tamano_final_bytes = tamano_final_mb * 1024 * 1024  # Convertir MB a Bytes
+# Contenidos para cada archivo
+contents = [
+    "manzana platano fresa kiwi mango pina sandia uva naranja papaya\n",
+    "brasil canada egipto francia india japon mexico noruega rusia tailandia\n",
+    "leon elefante canguro rinoceronte jirafa koala panda tiburon aguila camello\n",
+    "ingles espanol mandarin frances aleman japones ruso arabe portugues italiano\n",
+    "guitarra piano violin bateria flauta saxofon trompeta clarinete arpa cello\n",
+    "ford toyota bmw mercedes-benz honda audi tesla volkswagen porsche nissan\n",
+    "don quijote de la mancha el principito cien anos de soledad la odisea orgullo y prejuicio moby dick harry potter el senor de los anillos\n",
+    "el padrino forrest gump la lista de schindler la comunidad del anillo titanic matrix inception el club de la lucha intocable gladiator\n"
+]
+
+for i, content in enumerate(contents, start=3):  # Empieza con el archivo3.txt
+    target_file_path = r"D:\archivo{}.txt".format(i)
+    repetitions_needed = target_size_bytes // len(content.encode('utf-8'))
     
-    primera_linea = ''
-    with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
-        primera_linea = archivo.readline()  # Leer la primera línea
-        
-    if primera_linea:
-        with open(ruta_archivo, 'a', encoding='utf-8') as archivo:
-            while os.path.getsize(ruta_archivo) < tamano_final_bytes:
-                archivo.write(primera_linea)
-                # Opcionalmente, puede verificar el tamaño del archivo cada N escrituras para reducir el número de llamadas a os.path.getsize()
-    else:
-        print("El archivo está vacío.")
-
-# Ruta del archivo a modificar
-ruta_archivo = r"C:\Users\alumno-b303\Downloads\archivo20GB.txt"
-
-# Llamar a la función para ampliar el archivo hasta 1.5 GB
-ampliar_archivo_hasta(ruta_archivo, 1500)  # 1.5 GB en MB
+    with open(target_file_path, "w", encoding='utf-8') as file:
+        for _ in range(repetitions_needed):
+            file.write(content)
+    
+    print(f"Archivo {target_file_path} de 1GB creado exitosamente.")
